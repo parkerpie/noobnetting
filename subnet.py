@@ -19,7 +19,7 @@ class Main:
                                                      __/ |
   # VERSION 2.1           NOW WITH EASTER EGG(S)!   |___/
 
-Another shitty tool made by parkerp
+Another crappy tool made by parkerp
 
 The following prompt should interpret what you input pretty well, if not
 then you probably shouldn't be subnetting in the first place.
