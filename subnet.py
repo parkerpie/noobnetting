@@ -9,6 +9,8 @@ class Main:
         self.subnets    = 0
         self.subnethost = 0
 
+        self.subnetnum  = 0
+
         print """
                    _                _   _   _
                   | |              | | | | (_)
@@ -17,14 +19,14 @@ class Main:
 | | | | (_) | (_) | |_) | | | |  __/ |_| |_| | | | | (_| |
 |_| |_|\___/ \___/|_.__/|_| |_|\___|\__|\__|_|_| |_|\__, |
                                                      __/ |
-  # VERSION 2.1           NOW WITH EASTER EGG(S)!   |___/
+  # VERSION 2.5         Right on time for finals!   |___/
 
 Another crappy tool made by parkerp
 
 The following prompt should interpret what you input pretty well, if not
 then you probably shouldn't be subnetting in the first place.
 
-Type "help" to see commands!
+Type "help" or "h" to see commands!
             """
 
     def display(self):
@@ -32,8 +34,7 @@ Type "help" to see commands!
         print ""
         print "%-15s%-15s" % ('CIDR:', self.cidr), "\t\t", "%-15s%-15s" % ('IP ADDRESS:', self.ipaddress)
         print "%-15s%-15s" % ('MASK:', self.mask), "\t\t", "%-15s%-15s" % ('SUBNET HOST:', self.subnethost)
-
-        print "%-15s%-15s" % ('# OF SUBNETS:', self.subnets)
+        print "%-15s%-15s" % ('# OF SUBNETS:', self.subnets), "\t\t", "%-15s%-15s" % ('SUBNET #:', self.subnetnum)
         print "%-15s%-15s" % ('HOSTS/SUBNET:', self.hosts)
         print ""
 
@@ -46,8 +47,9 @@ Type "help" to see commands!
         if raw == 'help' or raw == 'h':
 
             print ""
-            print " |Type an IP/CIDR, /CIDR, or subnet mask:"
+            print " |Type an IP/CIDR, IP/MASK, /CIDR, or subnet mask:"
             print " |\t> 172.20.179.64/26"
+            print " |\t> 172.20.179.64 255.255.255.192"
             print " |\t> /26 or 26"
             print " |\t> 255.255.255.192\n"
             print " |For this list:"
@@ -149,7 +151,7 @@ Type "help" to see commands!
             self.subcontain()
         else:
             pass
-
+        
         self.display()
 
     def genmask(self):
@@ -244,7 +246,11 @@ Type "help" to see commands!
 
         self.subnethost = "%s.%s.%s.%s" % (octets[0], octets[1], octets[2], octets[3])
 
+        self.subnetnum = (int(octets[3])/interval) + 1
+
     def tables(self):
+
+        print ""
 
         if self.ipaddress != 0:
             octets = str(self.ipaddress).split(".")
@@ -260,7 +266,7 @@ Type "help" to see commands!
             ipbase = ""
             for i in range(0, mutable):
                 ipbase += octets[i] + "."
-            print ipbase
+            #print ipbase
             # CREATE BASES FOR PRINTING, AKA SUB 1 VALUES
             smod = 1
             nmod = 0
